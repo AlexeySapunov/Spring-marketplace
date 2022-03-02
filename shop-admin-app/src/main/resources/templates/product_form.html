@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header.html :: head">
+</head>
+
+<body>
+
+<nav th:replace="fragments/header.html :: navigation">
+</nav>
+
+<div class="container">
+    <div class="row py-2">
+        <div class="col-12">
+            <form th:action="@{/product}" method="post" th:object="${product}" enctype="multipart/form-data">
+                <input type="hidden" id="id" name="id" th:field="*{id}">
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <input th:field="*{name}" type="text" class="form-control" id="name" name="productName" placeholder="Enter product name">
+                    <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                </div>
+
+                <div class="form-group">
+                    <label>Price</label>
+                    <input th:field="*{price}" type="number" class="form-control" id="price" name="price" placeholder="Enter product price">
+                    <p class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <input th:field="*{description}" type="text" class="form-control" id="description" name="description" placeholder="Enter product description">
+                    <p class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select class="form-control" id="category" name="category" required>
+                        <option th:each="cat : ${categories}"
+                                th:text="${cat.name}"
+                                th:value="${cat.id}"
+                                th:selected="${product.category?.id == cat.id}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="brands">Brand</label>
+                    <select class="form-control" id="brands" th:field="*{brands}" required>
+                        <option th:each="brand : ${brands}"
+                                th:text="${brand.name}"
+                                th:value="${brand.id}"
+                                th:selected="${product.brands?.contains(brand)}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Add product images</label>
+                    <input type="file" class="form-control" id="newPicture" th:field="*{newPicture}"
+                           placeholder="New images" multiple>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card-columns" style="column-count: 5">
+                <div class="card" th:each="picId : ${product.pictures}">
+                    <form class="card-header" th:method="delete" th:action="@{/picture/{pictureId}(pictureId=${picId})}" >
+                        Picture<button class="float-right"><i class="fa fa-times"></i></button>
+                    </form>
+                    <img class="card-img-bottom" th:src="@{/picture/{pictureId}(pictureId=${picId})}"
+                         width="40%"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<th:block th:replace="fragments/footer.html :: scripts">
+</th:block>
+
+</body>
+
+</html>

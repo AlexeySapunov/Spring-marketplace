@@ -7,4 +7,14 @@
 
     <include file="db.changelog-2022-02-17T13:31:24Z.xml" relativeToChangelogFile="true"/>
 
+    <changeSet id="1645104689717-5" author="alex_sap">
+        <sqlFile path="insert-categories.sql"
+                 dbms="mysql"
+                 endDelimiter="GO"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback/>
+    </changeSet>
+
 </databaseChangeLog>
