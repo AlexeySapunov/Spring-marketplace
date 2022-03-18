@@ -25,27 +25,9 @@
         <tagDatabase tag="v-2.0"/>
     </changeSet>
 
-    <include file="v-2.1/root1.changelog.v-2.1.xml" relativeToChangelogFile="true"/>
-
-    <changeSet id="500" author="alex_sap">
-        <tagDatabase tag="v-2.1"/>
-    </changeSet>
-
-    <include file="v-2.2/root1.changelog.v-2.2.xml" relativeToChangelogFile="true"/>
-
-    <changeSet id="600" author="alex_sap">
-        <tagDatabase tag="v-2.2"/>
-    </changeSet>
-
-    <include file="v-2.3/root1.changelog.v-2.3.xml" relativeToChangelogFile="true"/>
-
-    <changeSet id="700" author="alex_sap">
-        <tagDatabase tag="v-2.3"/>
-    </changeSet>
-
     <include file="v-3.0/root1.changelog.v-3.0.xml" relativeToChangelogFile="true"/>
 
-    <changeSet id="800" author="alex_sap">
+    <changeSet id="500" author="alex_sap">
         <tagDatabase tag="v-3.0"/>
     </changeSet>
 

@@ -10,13 +10,13 @@ public class Picture {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", length = 1024, nullable = false)
+    @Column(name = "name", length = 512, nullable = false)
     private String name;
 
     @Column(name = "content_type", nullable = false)
     private String contentType;
 
-    @Column(name = "storage_file_name", length = 1024, nullable = false, unique = true)
+    @Column(name = "storage_file_name", length = 512, nullable = false, unique = true)
     private String storageFileName;
 
     @ManyToOne(optional = false)

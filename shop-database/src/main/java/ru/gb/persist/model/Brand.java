@@ -9,22 +9,24 @@ import java.util.Objects;
 public class Brand {
 
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "brands")
+    @OneToMany(mappedBy = "brand",
+            orphanRemoval = true,
+            cascade = CascadeType.ALL)
     private List<Product> products;
 
     public Brand() {
     }
 
-    public Brand(Long id, String name, List<Product> products) {
+    public Brand(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.products = products;
     }
 
     public Long getId() {
