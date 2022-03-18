@@ -45,11 +45,11 @@
 
                 <div class="form-group">
                     <label for="brands">Brand</label>
-                    <select class="form-control" id="brands" th:field="*{brands}" required>
+                    <select class="form-control" id="brands" name="brand" required>
                         <option th:each="brand : ${brands}"
                                 th:text="${brand.name}"
                                 th:value="${brand.id}"
-                                th:selected="${product.brands?.contains(brand)}"></option>
+                                th:selected="${product.brand?.id == brand.id}"></option>
                     </select>
                 </div>
 

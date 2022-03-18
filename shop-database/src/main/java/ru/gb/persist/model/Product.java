@@ -32,21 +32,19 @@ public class Product {
                cascade = CascadeType.ALL)
     private List<Picture> pictures = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "products_brands",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "brand_id"))
-    private Set<Brand> brands;
+    @ManyToOne(optional = false)
+    private Brand brand;
 
     public Product() {
     }
 
-    public Product(Long id, String name, BigDecimal price, String description, Category category) {
+    public Product(Long id, String name, BigDecimal price, String description, Category category, Brand brand) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
         this.category = category;
+        this.brand = brand;
     }
 
     public Long getId() {
@@ -97,12 +95,12 @@ public class Product {
         this.pictures = pictures;
     }
 
-    public Set<Brand> getBrands() {
-        return brands;
+    public Brand getBrand() {
+        return brand;
     }
 
-    public void setBrands(Set<Brand> brands) {
-        this.brands = brands;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
     @Override

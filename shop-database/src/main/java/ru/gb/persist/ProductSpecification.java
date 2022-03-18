@@ -12,4 +12,8 @@ public final class ProductSpecification {
     public static Specification<Product> byCategory(long categoryId) {
         return (root, query, builder) -> builder.equal(root.get("category").get("id"), categoryId);
     }
+
+    public static Specification<Product> byBrand(long brandId) {
+        return (root, query, builder) -> builder.equal(root.get("brand").get("id"), brandId);
+    }
 }
