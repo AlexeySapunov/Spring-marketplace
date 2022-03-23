@@ -1,7 +1,5 @@
 package ru.gb.controller.dto;
 
-import java.util.Objects;
-
 public class BrandDto {
 
     private Long id;
