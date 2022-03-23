@@ -9,7 +9,7 @@
 <form>
   <label for="nameFilter" class="form-label">Name</label>
   <div class="input-group mb-3">
-    <input type="text" class="form-control" id="nameFilter" placeholder="Name" aria-label="Name">
+    <input type="text" [(ngModel)]="nameFilter" name="filter" class="form-control" id="nameFilter" placeholder="Name" aria-label="Name">
   </div>
 
   <label for="priceFilter" class="form-label">Price</label>
@@ -19,5 +19,5 @@
     <input type="number" class="form-control" placeholder="To" aria-label="To">
   </div>
 
-  <button class="btn btn-primary" type="submit">Apply</button>
+  <button class="btn btn-primary" type="submit" (click)="applyNameFilter()">Apply</button>
 </form>
