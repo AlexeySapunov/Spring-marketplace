@@ -6,17 +6,17 @@
   <li class="list-group-item">Category 5</li>
 </ul>
 
-<form>
+<form (ngSubmit)="applyFilter()">
   <label for="nameFilter" class="form-label">Name</label>
   <div class="input-group mb-3">
-    <input type="text" [(ngModel)]="nameFilter" name="filter" class="form-control" id="nameFilter" placeholder="Name" aria-label="Name">
+    <input type="text" [(ngModel)]="nameFilter" name="nameFilter" class="form-control" id="nameFilter" placeholder="Name" aria-label="Name">
   </div>
 
   <label for="priceFilter" class="form-label">Price</label>
   <div class="input-group mb-3" id="priceFilter">
-    <input type="number" class="form-control"  placeholder="From" aria-label="From">
+    <input type="number" class="form-control" name="priceFrom" placeholder="From" aria-label="From">
     <span class="input-group-text">-</span>
-    <input type="number" class="form-control" placeholder="To" aria-label="To">
+    <input type="number" class="form-control" name="priceTo" placeholder="To" aria-label="To">
   </div>
 
   <button class="btn btn-primary" type="submit">Apply</button>

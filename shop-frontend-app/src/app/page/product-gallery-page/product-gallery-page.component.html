@@ -1,6 +1,6 @@
 <div class="row py-2">
   <div class="col-md-3 col-xs-12">
-    <app-product-filter [nameFilter]="nameFilter" (nameFilterApplied)="applyNameFilter($event)"></app-product-filter>
+    <app-product-filter (filterApplied)="applyFilter($event)"></app-product-filter>
   </div>
 
   <div class="col-md-9 col-xs-12">
@@ -8,7 +8,7 @@
 
     <app-product-gallery [products]="products"></app-product-gallery>
 
-    <app-product-paginator [page]="page"></app-product-paginator>
+    <app-product-paginator [page]="page" (goToPageEvent)="goToPage($event)"></app-product-paginator>
   </div>
 </div>
 

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ProductFilter} from "../../model/productFilter";
 
 @Component({
@@ -8,14 +8,14 @@ import {ProductFilter} from "../../model/productFilter";
 })
 export class ProductFilterComponent implements OnInit {
 
-  @Input() nameFilter?: ProductFilter;
+  nameFilter?: ProductFilter;
 
-  @Output() nameFilterApplied = new EventEmitter<ProductFilter>();
+  @Output() filterApplied = new EventEmitter<ProductFilter>();
 
   constructor() { }
 
-  applyNameFilter() {
-    this.nameFilterApplied.emit(this.nameFilter);
+  applyFilter() {
+    this.filterApplied.emit(this.nameFilter);
   }
 
   ngOnInit(): void {
