@@ -6,7 +6,7 @@
         <h5 class="card-title">{{prod.name}}</h5>
         <p class="card-text">{{prod.description}}</p>
         <a routerLink="/product/{{prod.id}}" class="btn btn-primary">View</a>
-        <a href="#" class="btn btn-primary">Add to card</a>
+        <a (click)="addToCart(prod.id)" class="btn btn-primary">Add to card</a>
       </div>
     </div>
   </div>

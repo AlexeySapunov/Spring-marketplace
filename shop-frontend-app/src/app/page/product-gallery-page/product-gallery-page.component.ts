@@ -39,9 +39,10 @@ export class ProductGalleryPageComponent implements OnInit {
     });
   }
 
-  applyNameFilter(nameFilter: ProductFilter) {
-    this.productService.findAll(1, nameFilter).subscribe(res => {
+  applyFilter($event: ProductFilter) {
+    this.productService.findAll(1, $event).subscribe(res => {
       console.log("Loading products..");
+      this.nameFilter = $event;
       this.page = res;
       this.products = res.content;
     }, error => {

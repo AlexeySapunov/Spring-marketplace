@@ -13,7 +13,7 @@ export class ProductService {
 
   public findAll(page?: number, nameFilter?: ProductFilter) : Observable<Page> {
     let params = new HttpParams();
-    if (nameFilter?.nameFilter != null) {
+    if (nameFilter) {
       params = params.set("nameFilter", nameFilter.nameFilter);
     }
     params = params.set("page", page != null ? page : 1);

@@ -1,6 +1,8 @@
 package ru.gb.controller.dto;
 
-public class CategoryDto {
+import java.io.Serializable;
+
+public class CategoryDto implements Serializable {
 
     private Long id;
 
