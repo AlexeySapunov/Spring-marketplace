@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.aspect.TrackTime;
 import ru.gb.controller.dto.AddLineItemDto;
 import ru.gb.controller.dto.AllCartDto;
 import ru.gb.controller.dto.ProductDto;
@@ -13,7 +14,7 @@ import ru.gb.service.dto.LineItem;
 
 import java.util.List;
 
-@RequestMapping("/cart")
+@RequestMapping("/v1/cart")
 @RestController
 public class CartController {
 
@@ -29,6 +30,7 @@ public class CartController {
         this.productService = productService;
     }
 
+    @TrackTime
     @PostMapping(produces = "application/json", consumes = "application/json")
     public List<LineItem> addToCart(@RequestBody AddLineItemDto addLineItemDto) {
         logger.info("New LineItem. ProductId = {}, qty = {}", addLineItemDto.getProductId(), addLineItemDto.getQty());

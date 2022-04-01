@@ -11,9 +11,12 @@
           <th scope="col">Actions</th>
         </tr>
       </thead>
+
       <tbody>
-        <tr>
-          <app-product-cart [lineItems]="lineItems"></app-product-cart>
+        <tr app-cart-item
+            *ngFor="let lineItem of content?.lineItems"
+            [attr.linItem] = "lineItem"
+            (updated)="cartUpdated()">
         </tr>
       </tbody>
     </table>
@@ -24,8 +27,8 @@
     <div class="card">
       <div class="card-body">
         <h2>Order summary</h2>
-        <p></p>
-        <button class="btn btn-primary me-2">Create Order</button>
+        <p>Subtotal: {{content?.subtotal}}</p>
+        <button class="btn btn-primary me-2" (click)="createOrder()" )>Create Order</button>
       </div>
     </div>
   </div>

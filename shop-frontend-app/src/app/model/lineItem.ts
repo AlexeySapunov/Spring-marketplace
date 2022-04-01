@@ -6,6 +6,7 @@ export class LineItem {
               public product: Product,
               public qty: number,
               public color: string,
-              public material: string) {
+              public material: string,
+              public itemTotal: number) {
   }
 }
