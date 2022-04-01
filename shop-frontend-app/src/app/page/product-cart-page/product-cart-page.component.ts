@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {LineItem} from "../../model/lineItem";
 import {CartService} from "../../service/cart.service";
+import {AllCart} from "../../model/allCart";
+import {OrderService} from "../../service/order.service";
 
 @Component({
   selector: 'app-product-cart-page',
@@ -9,16 +10,24 @@ import {CartService} from "../../service/cart.service";
 })
 export class ProductCartPageComponent implements OnInit {
 
-  lineItems?: LineItem;
+  content?: AllCart;
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService,
+              private orderService: OrderService) { }
 
   ngOnInit(): void {
-    this.cartService.findAll().subscribe(res => {
-      console.log("Loading products..")
-      this.lineItems = res.lineItems;
-    }, error => {
-      console.log(`Error loading products ${error}`);
-    });
+    this.cartUpdated();
+  }
+
+  cartUpdated() {
+    this.cartService.findAll().subscribe(
+      res => {
+        this.content = res;
+      }
+    )
+  }
+
+  createOrder() {
+    this.orderService.createOrder().subscribe();
   }
 }

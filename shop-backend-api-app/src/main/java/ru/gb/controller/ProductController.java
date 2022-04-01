@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.gb.aspect.TrackTime;
 import ru.gb.controller.dto.ProductDto;
 import ru.gb.service.ProductService;
 
@@ -24,6 +25,7 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @TrackTime
     @GetMapping("/all")
     public Page<ProductDto> findAll(@RequestParam("categoryId") Optional<Long> categoryId,
                                     @RequestParam("brandId") Optional<Long> brandId,

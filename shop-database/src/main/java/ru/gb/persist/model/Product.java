@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -34,6 +33,9 @@ public class Product {
 
     @ManyToOne(optional = false)
     private Brand brand;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderLineItem> orderLineItems;
 
     public Product() {
     }
@@ -101,6 +103,14 @@ public class Product {
 
     public void setBrand(Brand brand) {
         this.brand = brand;
+    }
+
+    public List<OrderLineItem> getOrderLineItems() {
+        return orderLineItems;
+    }
+
+    public void setOrderLineItems(List<OrderLineItem> orderLineItems) {
+        this.orderLineItems = orderLineItems;
     }
 
     @Override
