@@ -1,7 +1,9 @@
 package ru.gb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,13 +25,13 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping
-    public List<OrderDto> findAll() {
-        return orderService.findAll();
+    @PostMapping
+    public void createOrder(Authentication auth) {
+        orderService.createOrder(auth.getName());
     }
 
-    @PostMapping
-    public void createOrder() {
-        orderService.createOrder();
+    @GetMapping("/all")
+    public List<OrderDto> findAll(Authentication auth) {
+        return orderService.findOrdersByUsername(auth.getName());
     }
 }

@@ -10,11 +10,13 @@ import { FooterComponent } from './component/footer/footer.component';
 import { ProductFilterComponent } from './component/product-filter/product-filter.component';
 import { ProductGalleryComponent } from './component/product-gallery/product-gallery.component';
 import { ProductPaginatorComponent } from './component/product-paginator/product-paginator.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import { ProductCartComponent } from './component/product-cart/product-cart.component';
 import { ProductCartPageComponent } from './page/product-cart-page/product-cart-page.component';
 import { OrderPageComponent } from './page/order-page/order-page.component';
+import { LoginPageComponent } from './page/login-page/login-page.component';
+import {UnauthorizedInterceptor} from "./helper/unauthorized-interceptor";
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { OrderPageComponent } from './page/order-page/order-page.component';
     ProductCartComponent,
     ProductCartPageComponent,
     OrderPageComponent,
+    LoginPageComponent,
   ],
     imports: [
         BrowserModule,
@@ -36,7 +39,9 @@ import { OrderPageComponent } from './page/order-page/order-page.component';
         HttpClientModule,
         FormsModule,
     ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: UnauthorizedInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

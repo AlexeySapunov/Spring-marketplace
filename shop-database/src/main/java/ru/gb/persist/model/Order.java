@@ -15,6 +15,10 @@ public class Order {
     @Column(nullable = false, name = "order_date")
     private LocalDateTime orderDate;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User user;
@@ -25,9 +29,11 @@ public class Order {
     public Order() {
     }
 
-    public Order(Long id, LocalDateTime orderDate) {
+    public Order(Long id, LocalDateTime orderDate, OrderStatus status, User user) {
         this.id = id;
         this.orderDate = orderDate;
+        this.status = status;
+        this.user = user;
     }
 
     public Long getId() {
@@ -46,6 +52,14 @@ public class Order {
         this.orderDate = orderDate;
     }
 
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
     public User getUser() {
         return user;
     }
@@ -60,5 +74,9 @@ public class Order {
 
     public void setOrderLineItems(List<OrderLineItem> orderLineItems) {
         this.orderLineItems = orderLineItems;
+    }
+
+    public enum OrderStatus {
+        CREATED, PROCESSED, IN_DELIVERY, DELIVERED, CLOSED, CANCELED
     }
 }

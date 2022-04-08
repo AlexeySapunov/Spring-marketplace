@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {CartService} from "../../service/cart.service";
 import {AllCart} from "../../model/allCart";
 import {OrderService} from "../../service/order.service";
+import {AuthService} from "../../service/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-cart-page',
@@ -13,7 +15,9 @@ export class ProductCartPageComponent implements OnInit {
   content?: AllCart;
 
   constructor(private cartService: CartService,
-              private orderService: OrderService) { }
+              private orderService: OrderService,
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.cartUpdated();
@@ -27,7 +31,19 @@ export class ProductCartPageComponent implements OnInit {
     )
   }
 
+  private _createOrderCallback() {
+    this.orderService.createOrder()
+      .subscribe();
+  }
+
   createOrder() {
-    this.orderService.createOrder().subscribe();
+    if (!this.authService.isAuthenticated()) {
+      this.authService.redirectUrl = '/order';
+      this.authService.callbackAfterSuccess = this._createOrderCallback.bind(this);
+      this.router.navigateByUrl('/login');
+      return;
+    }
+    this.orderService.createOrder()
+      .subscribe(() => this.router.navigateByUrl('/order'));
   }
 }

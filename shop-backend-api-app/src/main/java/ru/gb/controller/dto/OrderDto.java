@@ -9,6 +9,8 @@ public class OrderDto {
 
     private LocalDateTime orderDate;
 
+    private String status;
+
     private String username;
 
     private List<OrderLineItemDto> orderLineItems;
@@ -16,9 +18,10 @@ public class OrderDto {
     public OrderDto() {
     }
 
-    public OrderDto(Long id, LocalDateTime orderDate, String username, List<OrderLineItemDto> orderLineItems) {
+    public OrderDto(Long id, LocalDateTime orderDate, String status, String username, List<OrderLineItemDto> orderLineItems) {
         this.id = id;
         this.orderDate = orderDate;
+        this.status = status;
         this.username = username;
         this.orderLineItems = orderLineItems;
     }
@@ -33,6 +36,14 @@ public class OrderDto {
 
     public LocalDateTime getOrderDate() {
         return orderDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public void setOrderDate(LocalDateTime orderDate) {
