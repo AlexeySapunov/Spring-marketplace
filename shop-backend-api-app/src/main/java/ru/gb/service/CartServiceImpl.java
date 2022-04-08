@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Scope(scopeName = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CartServiceImpl implements CartService{
+public class CartServiceImpl implements CartService {
 
     private final Map<LineItem, Integer> lineItems;
 
@@ -64,5 +64,10 @@ public class CartServiceImpl implements CartService{
         return lineItems.keySet()
                 .stream().map(LineItem::getItemTotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    @Override
+    public void clear() {
+        lineItems.clear();
     }
 }

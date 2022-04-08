@@ -15,7 +15,7 @@
       <tbody>
         <tr app-cart-item
             *ngFor="let lineItem of content?.lineItems"
-            [attr.linItem] = "lineItem"
+            [attr.lineItem]="lineItem"
             (updated)="cartUpdated()">
         </tr>
       </tbody>
@@ -28,7 +28,7 @@
       <div class="card-body">
         <h2>Order summary</h2>
         <p>Subtotal: {{content?.subtotal}}</p>
-        <button class="btn btn-primary me-2" (click)="createOrder()" )>Create Order</button>
+        <button class="btn btn-primary me-2" (click)="createOrder()">Create Order</button>
       </div>
     </div>
   </div>

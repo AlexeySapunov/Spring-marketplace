@@ -9,11 +9,17 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
 
-  public findAll() {
-    return this.http.get<Order[]>('api/v1/order/all')
+  public findOrdersByCurrentUser() {
+    return this.http.get<Order[]>('api/v1/order/all');
   }
 
   public createOrder() {
-    return this.http.post<any>('api/v1/order', {})
+    return this.http.post<any>('api/v1/order', {});
+  }
+
+  public deleteOrder(order: Order[]) {
+    return this.http.delete('api/v1/order', ({
+      body: order
+    }));
   }
 }
