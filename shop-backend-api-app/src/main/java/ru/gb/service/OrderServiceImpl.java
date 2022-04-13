@@ -2,6 +2,8 @@ package ru.gb.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
@@ -36,15 +38,18 @@ public class OrderServiceImpl implements OrderService {
 
     private final SimpMessagingTemplate template;
 
+    private final RabbitTemplate rabbitTemplate;
+
     @Autowired
     public OrderServiceImpl(CartService cartService, UserRepository userRepository,
                             OrderRepository orderRepository, ProductRepository productRepository,
-                            SimpMessagingTemplate template) {
+                            SimpMessagingTemplate template, RabbitTemplate rabbitTemplate) {
         this.cartService = cartService;
         this.userRepository = userRepository;
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
         this.template = template;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     @Override
@@ -102,22 +107,20 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderLineItems(lineItems);
         orderRepository.save(order);
         cartService.clear();
-
-        new Thread(() -> {
-            for (Order.OrderStatus status : Order.OrderStatus.values()) {
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                logger.info("Sending next status {} for order {}", status, order.getId());
-                template.convertAndSend("/order_out/order", new OrderStatus(order.getId(), status.toString()));
-            }
-        }).start();
+        rabbitTemplate.convertAndSend("order.exchange", "new_order",
+                new OrderStatus(order.getId(), order.getStatus().toString()));
     }
 
     private Product findProductById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No product with this id"));
+    }
+
+    @RabbitListener(queues = "processed.order.queue")
+    public void receiver(OrderStatus orderStatus) {
+        logger.info("New order status received id = {}, status = {}",
+                orderStatus.getOrderId(), orderStatus.getStatus());
+
+        template.convertAndSend("/order_out/order", orderStatus);
     }
 }

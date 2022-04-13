@@ -9,6 +9,7 @@ services:
     image: shop-frontend-app:latest
     ports:
       - 8080:80
+    restart: always
     depends_on:
       - shop-admin-app
       - shop-backend-api-app
@@ -24,6 +25,7 @@ services:
       - PROFILE=dock
       - CONFIG_SERVER_URL=http://cloud-config:8888
     command: bash -c "/apps/wait-for-service.sh db 3306 && /apps/wait-for-service.sh cloud-config 8888 && /apps/entrypoint.sh"
+    restart: always
     depends_on:
       - db
       - redis
@@ -36,11 +38,14 @@ services:
     environment:
       - PROFILE=dock
       - CONFIG_SERVER_URL=http://cloud-config:8888
-    command: bash -c "/apps/wait-for-service.sh db 3306 && /apps/wait-for-service.sh cloud-config 8888 && /apps/entrypoint.sh"
+    command: bash -c "/apps/wait-for-service.sh rabbitmq 5672 && /apps/wait-for-service.sh db 3306 && /apps/wait-for-service.sh cloud-config 8888 && /apps/entrypoint.sh"
+    restart: always
     depends_on:
       - db
       - redis
       - cloud-config
+      - shop-delivery-service
+      - rabbitmq
 
   picture-service-app:
     image: registry.heroku.com/geek-shop-picture-service-api/web:latest
@@ -52,9 +57,18 @@ services:
       - PROFILE=dock
       - CONFIG_SERVER_URL=http://cloud-config:8888
     command: bash -c "/apps/wait-for-service.sh db 3306 && /apps/wait-for-service.sh cloud-config 8888 && /apps/entrypoint.sh"
+    restart: always
     depends_on:
       - db
       - cloud-config
+
+  shop-delivery-service:
+    image: registry.heroku.com/geek-shop-delivery-service/web:latest
+    command: bash -c "/apps/wait-for-service.sh rabbitmq 5672 && /apps/wait-for-service.sh cloud-config 8888 && /apps/entrypoint.sh"
+    restart: always
+    depends_on:
+      - cloud-config
+      - rabbitmq
 
   db:
     image: mysql:8.0.25
@@ -71,6 +85,12 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
     ports:
       - 6379:6379
+
+  rabbitmq:
+    image: 'rabbitmq:3.9-management'
+    ports:
+      - 5672
+      - 15672:15672
 
 volumes:
   mysql-data:

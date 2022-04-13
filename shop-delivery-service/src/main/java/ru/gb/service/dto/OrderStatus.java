@@ -29,4 +29,8 @@ public class OrderStatus {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public enum OrderStatusValue {
+        CREATED, PROCESSED, IN_DELIVERY, DELIVERED, CLOSED, CANCELED
+    }
 }
