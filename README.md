@@ -22,17 +22,17 @@
 
 ### :interrobang: How it work :
 
-- :white_check_mark: Use command line: 
+ :white_check_mark: Use command line: 
   ```js 
   git clone https://github.com/AlexeySapunov/Spring-marketplace.git 
   ```
-- :white_check_mark: Change the local picture storage path in folder [config-repo](https://github.com/AlexeySapunov/Spring-marketplace/spring-cloud-config/config-repo) in *-cloud.properties files
+ :white_check_mark: Change the local picture storage path in folder [config-repo](https://github.com/AlexeySapunov/Spring-marketplace/spring-cloud-config/config-repo) in *-cloud.properties files
 
-- :white_check_mark: Configure the mysql database per properties
+ :white_check_mark: Configure the mysql database per properties
 
-- :white_check_mark: Run [docker-compose](https://github.com/AlexeySapunov/Spring-marketplace/docker-compose.yaml)
+ :white_check_mark: Run [docker-compose](https://github.com/AlexeySapunov/Spring-marketplace/docker-compose.yaml)
 
-- :heavy_check_mark: And finally click [![Telegram Badge](https://img.shields.io/badge/Admin-green?style=for-the-badge&logo=admin&logoColor=white)](https://localhost:8080/admin/login) and [![Telegram Badge](https://img.shields.io/badge/SpringMarketplace-blue?style=for-the-badge&logo=springMarketplace&logoColor=white)](https://localhost:8080/admin/login)
+ :heavy_check_mark: And finally click [![Telegram Badge](https://img.shields.io/badge/Admin-green?style=for-the-badge&logo=admin&logoColor=white)](https://localhost:8080/admin/login) and [![Telegram Badge](https://img.shields.io/badge/SpringMarketplace-blue?style=for-the-badge&logo=springMarketplace&logoColor=white)](https://localhost:8080/admin/login)
 
 ---
 
